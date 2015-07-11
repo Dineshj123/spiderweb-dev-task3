@@ -18,7 +18,7 @@ a:link{text-decoration:none;}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
-var str=1,score=0,scrtmp=0;
+var str=1,score=0,scrtmp=0,count=0;
 var x,y,z,a,check,ans,answer,checked;
 function start(){	
 	//document.getElementById("start").visibility="hidden";
@@ -32,8 +32,8 @@ function start(){
 		$("#test1").html(response);
 		}
     	});
-		alert(document.getElementById("test1").innerHTML);
-		if(document.getElementById("test1").innerHTML==""){str++;start();}
+		alert("This is the unanaswered question.If it is blank click ok to continue..."+document.getElementById("test1").innerHTML);
+		if(document.getElementById("test1").innerHTML==""){str++;count++;start();}
 		//alert("okay fine");
 		$("#submit").click(function(e){
 		e.preventDefault();
@@ -59,9 +59,11 @@ function start(){
 	});
     if(str==6){
 		$(document).ready(function(){
+			
 		$.ajax({
-		type:"GET",
-		url:"Thankyou.php?q="+score,
+		type:"POST",
+		url:"Thankyou.php",
+		data:{score:score,count:count},
 			success:function(response){
 			$("#unans").hide();
 			$("#score").hide();
